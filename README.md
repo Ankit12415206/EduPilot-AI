@@ -11,15 +11,15 @@
 ### Installation
 
 ```bash
-# 1. Navigate to the project
-cd StudyAI-Project
+# 1. Clone the repository
+git clone https://github.com/Ankit12415206/EduPilot-AI.git
+cd EduPilot-AI
 
 # 2. Install Python dependencies
 pip install -r backend/requirements.txt
 
 # 3. Train ML models (generates dataset + trains models)
 cd backend
-set PYTHONIOENCODING=utf-8
 python ml/train.py
 
 # 4. Start the server
@@ -29,112 +29,90 @@ python -m uvicorn main:app --reload --port 8000
 # http://localhost:8000
 ```
 
-## 📊 ML Model Performance
+**Demo Account:** `demo` / `demo123`
 
-| Metric | Value |
-|--------|-------|
-| XGBoost RMSE | 0.82 |
-| Random Forest RMSE | 1.21 |
-| Classification Accuracy | 97.25% |
-| F1 Score | 0.98 |
-| Dataset Size | 2000 students |
-| Features | 17 |
+## 🔐 Authentication & Security
+- **Secure Login/Register**: SHA-256 password hashing with unique salts.
+- **Token Sessions**: Secure session management for multi-user support.
+- **User Scoping**: Data isolation ensuring users only access their own profiles.
+- **Auth Guard**: Protected dashboard routes.
 
 ## 🧠 Core Features
 
 ### 1. Performance Prediction
-- Ensemble of Random Forest + XGBoost
-- Predicts final score (regression) and pass/fail (classification)
-- SHAP-based explainability — shows WHY predictions were made
+- Ensemble of **Random Forest + XGBoost** for high accuracy (98.5%).
+- Predicts final score (regression) and pass/fail probability (classification).
+- **Explainability Engine**: Provides human-readable reasons for every prediction.
 
-### 2. Weakness Detection
-- Identifies weak subjects using statistical thresholds
-- Analyzes behavioral factors (attendance, study hours, sleep, etc.)
-- Color-coded severity: 🔴 Critical → 🟡 Moderate → 🔵 Mild → 🟢 Strong
+### 2. Universal Profile System
+- **Customizable Fields**: Toggle default academic fields or add your own custom metrics.
+- **Flexible Data**: Adapts to school students, college students, or professionals.
+- **Persistent Settings**: Your field configuration is saved across sessions.
 
 ### 3. Personalized Study Plans
-- AI-generated weekly schedules prioritized by weakness severity
-- Daily task checklists with completion tracking
-- Spaced repetition intervals (1, 3, 7, 14, 30 days)
-- Exam proximity weighting
+- **AI Generation**: Weekly schedules prioritized by subject weakness severity.
+- **Adaptive Engine**: Monitors daily progress and automatically regenerates plans.
+- **Actionable Tasks**: Daily checklists with completion status tracking.
 
-### 4. Adaptive Learning Engine
-- Monitors daily progress and self-ratings
-- Detects improvement trends and stagnation
-- Automatically regenerates plans when needed
+### 4. Advanced Analytics Dashboard
+- **6-Chart Interface**: Includes Radar, Gauge, Bar, Pie, Line, and Heatmap visualizations.
+- **KPI Grid**: Track Predicted Score, Pass Probability, Streak, Weaknesses, and Completion Rate.
+- **Natural Design**: Warm-cool palette with glassmorphism and Lucide icons.
 
-### 5. Interactive Dashboard
-- Performance gauge (predicted score)
-- Subject radar chart
-- Weakness heatmap
-- Study trend charts
-- Study streak counter
+### 5. Reminders & Notifications
+- **Study Reminders**: Set specific times for subject-wise study sessions.
+- **Browser Notifications**: Native alerts ensuring you never miss a study window.
 
-### 6. Additional Features
-- 🎤 Voice commands (Web Speech API)
-- 🌙 Dark/Light theme toggle
-- 🔔 Toast notifications
-- 📱 Responsive design (mobile-friendly)
+### 6. Professional Data Export
+- **Multi-Format Export**: Download your data as **PDF, CSV, Excel (XLS), or JSON**.
+- **Formatted PDF Reports**: Print-ready performance summaries with charts and metrics.
+- **Data Preview**: Table-based overview before exporting.
+
+### 7. Integrated Help Chatbot
+- **Rule-based Assistant**: Guided help for platform features.
+- **Quick Actions**: One-click answers for common queries.
+
+## 📊 ML Model Performance
+
+| Metric | Value |
+|--------|-------|
+| Best Model | Logistic Regression (98.5%) |
+| XGBoost RMSE | 0.84 |
+| F1 Score | 0.989 |
+| Dataset Size | 2000 students |
+| Features | 17 (Demographic + Behavioral) |
 
 ## 📁 Project Structure
 
 ```
-StudyAI-Project/
+EduPilot-AI/
 ├── backend/
 │   ├── main.py              # FastAPI entry point
 │   ├── database.py           # SQLAlchemy setup
 │   ├── config.py             # Configuration
-│   ├── api/                  # REST API endpoints
-│   ├── models/               # ORM models
-│   ├── schemas/              # Pydantic schemas
-│   ├── services/             # Business logic
+│   ├── api/                  # REST API endpoints (Auth, Students, Plans, etc.)
+│   ├── models/               # ORM schemas
+│   ├── services/             # Business logic (Auth, Planner, Recommendation)
 │   └── ml/                   # ML engine
 │       ├── dataset_generator.py  # Data pipeline
-│       ├── predictor.py          # Prediction models
-│       ├── explainer.py          # SHAP explainability
+│       ├── predictor.py          # Prediction logic
+│       ├── explainer.py          # Explainability engine
 │       ├── train.py              # Training pipeline
-│       └── artifacts/            # Saved models
+│       └── artifacts/            # Trained model weights & metrics
 ├── frontend/
+│   ├── login.html            # Auth portal
 │   ├── index.html            # Dashboard SPA
-│   ├── css/styles.css        # Design system
-│   └── js/                   # JavaScript modules
-├── data/                     # Generated datasets
-├── docs/                     # Documentation
-│   └── SRS.md               # Software Requirements Spec
-└── README.md
+│   ├── css/styles.css        # Professional Design System
+│   └── js/                   # Modular JS (Dashboard, Export, Reminders, etc.)
+├── data/                     # SQLite DB & raw datasets
+└── docs/                     # Documentation & Model Plots
 ```
-
-## 🔌 API Endpoints
-
-| Endpoint | Method | Description |
-|----------|--------|-------------|
-| `/api/students` | GET/POST | List/Create students |
-| `/api/students/{id}` | GET/PUT/DELETE | Student CRUD |
-| `/api/predict/{id}` | POST | Run prediction |
-| `/api/weaknesses/{id}` | GET | Weakness analysis |
-| `/api/plans/{id}` | GET/POST | Study plan |
-| `/api/plans/{id}/adapt` | POST | Adaptive replan |
-| `/api/progress/{id}` | GET/POST | Progress tracking |
-| `/api/analytics/{id}/overview` | GET | Dashboard data |
-
-## 🛠️ Technology Stack
-
-- **Backend**: FastAPI, SQLAlchemy, SQLite
-- **ML**: scikit-learn, XGBoost, SHAP, NumPy, Pandas
-- **Frontend**: HTML5, CSS3, JavaScript, Chart.js
-- **Dataset**: 1000 Kaggle + 1000 Synthetic students
-
-## 📈 Future Scope
-
-- Mobile app (React Native/Flutter)
-- AI chatbot tutor
-- Wearable device integration
-- Online learning platform integration
-- Collaborative study groups
 
 ## 👨‍💻 Author
 
-Built as a CA ML Project for academic assessment.
+**Ankit**
+Registration No: 12415206
+Course: B.Tech CSE AI/ML (CSE274)
 
 ---
 
