@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <title>EduPilot AI — Login</title>
+  <link rel="stylesheet" href="/css/styles.css">
+  <style>
+    body{display:flex;align-items:center;justify-content:center;min-height:100vh;background:var(--bg-primary);overflow:hidden}
+    .login-bg{position:fixed;inset:0;z-index:0}
+    .login-bg .orb{position:absolute;border-radius:50%;filter:blur(80px);opacity:.15;animation:float 8s ease-in-out infinite}
+    .login-bg .orb-1{width:400px;height:400px;background:#7c6ef0;top:-100px;left:-100px;animation-delay:0s}
+    .login-bg .orb-2{width:350px;height:350px;background:#5b8def;bottom:-80px;right:-80px;animation-delay:2s}
+    .login-bg .orb-3{width:250px;height:250px;background:#40c9c6;top:50%;left:60%;animation-delay:4s}
+    @keyframes float{0%,100%{transform:translateY(0) scale(1)}50%{transform:translateY(-30px) scale(1.05)}}
+
+    .login-container{position:relative;z-index:1;width:100%;max-width:420px;padding:1.5rem}
+    .login-card{background:var(--bg-card);backdrop-filter:blur(30px);border:1px solid var(--border-glass);border-radius:20px;padding:2.25rem;box-shadow:0 20px 60px rgba(0,0,0,0.35)}
+    .login-logo{display:flex;align-items:center;gap:1rem;margin-bottom:1.75rem;justify-content:center}
+    .login-logo .logo-icon{width:50px;height:50px;border-radius:14px;background:var(--gradient-primary);display:flex;align-items:center;justify-content:center;font-size:1.3rem;font-weight:800;color:#fff;box-shadow:0 6px 20px rgba(124,110,240,.3)}
+    .login-logo h1{font-size:1.45rem;font-weight:800;background:var(--gradient-primary);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+    .login-logo p{font-size:.68rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:.08em}
+
+    .login-tabs{display:flex;margin-bottom:1.35rem;background:var(--bg-glass);border-radius:var(--radius-sm);padding:3px}
+    .login-tab{flex:1;padding:.55rem;text-align:center;font-size:.82rem;font-weight:600;color:var(--text-muted);cursor:pointer;border-radius:6px;transition:all var(--transition)}
+    .login-tab.active{background:var(--gradient-primary);color:#fff;box-shadow:0 3px 10px rgba(124,110,240,.25)}
+
+    .login-form .form-group{margin-bottom:.9rem}
+    .login-form .form-group label{display:block;font-size:.78rem;font-weight:500;color:var(--text-secondary);margin-bottom:.35rem}
+    .login-form .form-group input{width:100%;padding:.65rem .85rem;background:var(--bg-glass);border:1px solid var(--border-glass);border-radius:var(--radius-sm);color:var(--text-primary);font-size:.88rem;outline:none;transition:border var(--transition)}
+    .login-form .form-group input:focus{border-color:var(--accent-primary);box-shadow:0 0 0 2px rgba(124,110,240,.12)}
+    .login-form .form-group input::placeholder{color:var(--text-muted)}
+
+    .login-btn{width:100%;padding:.8rem;background:var(--gradient-primary);border:none;border-radius:var(--radius-sm);color:#fff;font-size:1rem;font-weight:700;cursor:pointer;transition:all var(--transition);box-shadow:0 4px 15px rgba(102,126,234,.3);margin-top:.5rem}
+    .login-btn:hover{transform:translateY(-2px);box-shadow:0 8px 25px rgba(102,126,234,.4)}
+
+    .login-error{color:var(--critical);font-size:.8rem;text-align:center;margin-top:.75rem;min-height:1.2em}
+    .login-footer{text-align:center;margin-top:1.5rem;font-size:.75rem;color:var(--text-muted)}
+    .login-footer a{color:var(--accent-blue)}
+    .demo-hint{background:rgba(102,126,234,.08);border:1px solid rgba(102,126,234,.15);border-radius:var(--radius-sm);padding:.6rem .8rem;margin-top:1rem;font-size:.75rem;color:var(--text-secondary);text-align:center}
+    .demo-hint code{background:rgba(255,255,255,.06);padding:.1rem .4rem;border-radius:4px;font-size:.75rem}
+
+    .form-hidden{display:none}
+  </style>
+</head>
+<body>
+  <div class="login-bg">
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+    <div class="orb orb-3"></div>
+  </div>
+
+  <div class="login-container">
+    <div class="login-card">
+      <div class="login-logo">
+        <div class="logo-icon">EP</div>
+        <div>
+          <h1>EduPilot AI</h1>
+          <p>Smart Study Planner</p>
+        </div>
+      </div>
+
+      <div class="login-tabs">
+        <div class="login-tab active" onclick="switchTab('login')">Login</div>
+        <div class="login-tab" onclick="switchTab('register')">Register</div>
+      </div>
+
+      <!-- Login Form -->
+      <form id="login-form" class="login-form" onsubmit="handleLogin(event)">
+        <div class="form-group">
+          <label>Username</label>
+          <input type="text" id="login-username" placeholder="Enter username" required autocomplete="username" />
+        </div>
+        <div class="form-group">
+          <label>Password</label>
+          <input type="password" id="login-password" placeholder="Enter password" required autocomplete="current-password" />
+        </div>
+        <button type="submit" class="login-btn">Sign In</button>
+        <div id="login-error" class="login-error"></div>
+      </form>
+
+      <!-- Register Form -->
+      <form id="register-form" class="login-form form-hidden" onsubmit="handleRegister(event)">
+        <div class="form-group">
+          <label>Full Name</label>
+          <input type="text" id="reg-name" placeholder="Your full name" required />
+        </div>
+        <div class="form-group">
+          <label>Username</label>
+          <input type="text" id="reg-username" placeholder="Choose a username" required minlength="3" autocomplete="username" />
+        </div>
+        <div class="form-group">
+          <label>Password</label>
+          <input type="password" id="reg-password" placeholder="Create a password" required minlength="4" autocomplete="new-password" />
+        </div>
+        <button type="submit" class="login-btn">Create Account</button>
+        <div id="reg-error" class="login-error"></div>
+      </form>
+
+      <div class="demo-hint">
+        Demo account: <code>demo</code> / <code>demo123</code>
+      </div>
+
+      <div class="login-footer">
+        Powered by Machine Learning &amp; AI
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const API = window.location.origin;
+
+    function switchTab(tab) {
+      document.querySelectorAll('.login-tab').forEach((t,i) => {
+        t.classList.toggle('active', (tab==='login' && i===0) || (tab==='register' && i===1));
+      });
+      document.getElementById('login-form').classList.toggle('form-hidden', tab !== 'login');
+      document.getElementById('register-form').classList.toggle('form-hidden', tab !== 'register');
+      document.getElementById('login-error').textContent = '';
+      document.getElementById('reg-error').textContent = '';
+    }
+
+    async function handleLogin(e) {
+      e.preventDefault();
+      const errEl = document.getElementById('login-error');
+      errEl.textContent = '';
+      try {
+        const res = await fetch(`${API}/api/auth/login`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            username: document.getElementById('login-username').value,
+            password: document.getElementById('login-password').value,
+          })
+        });
+        const data = await res.json();
+        if (!res.ok) throw new Error(data.detail || 'Login failed');
+        localStorage.setItem('edupilot-token', data.token);
+        localStorage.setItem('edupilot-user', JSON.stringify(data));
+        window.location.href = '/dashboard';
+      } catch (err) {
+        errEl.textContent = err.message;
+      }
+    }
+
+    async function handleRegister(e) {
+      e.preventDefault();
+      const errEl = document.getElementById('reg-error');
+      errEl.textContent = '';
+      try {
+        const res = await fetch(`${API}/api/auth/register`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            full_name: document.getElementById('reg-name').value,
+            username: document.getElementById('reg-username').value,
+            password: document.getElementById('reg-password').value,
+          })
+        });
+        const data = await res.json();
+        if (!res.ok) throw new Error(data.detail || 'Registration failed');
+        localStorage.setItem('edupilot-token', data.token);
+        localStorage.setItem('edupilot-user', JSON.stringify(data));
+        window.location.href = '/dashboard';
+      } catch (err) {
+        errEl.textContent = err.message;
+      }
+    }
+
+    // If already logged in, redirect
+    if (localStorage.getItem('edupilot-token')) {
+      window.location.href = '/dashboard';
+    }
+  </script>
+</body>
+</html>

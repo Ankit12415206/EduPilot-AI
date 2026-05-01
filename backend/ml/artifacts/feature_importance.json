@@ -1,0 +1,104 @@
+[
+  {
+    "feature": "writing",
+    "importance": 0.5033,
+    "rf_importance": 0.5918,
+    "xgb_importance": 0.4443
+  },
+  {
+    "feature": "reading",
+    "importance": 0.3308,
+    "rf_importance": 0.3057,
+    "xgb_importance": 0.3475
+  },
+  {
+    "feature": "history",
+    "importance": 0.1097,
+    "rf_importance": 0.0475,
+    "xgb_importance": 0.1512
+  },
+  {
+    "feature": "science",
+    "importance": 0.0305,
+    "rf_importance": 0.0294,
+    "xgb_importance": 0.0312
+  },
+  {
+    "feature": "math",
+    "importance": 0.0235,
+    "rf_importance": 0.0226,
+    "xgb_importance": 0.0242
+  },
+  {
+    "feature": "gender_encoded",
+    "importance": 0.0003,
+    "rf_importance": 0.0001,
+    "xgb_importance": 0.0004
+  },
+  {
+    "feature": "attendance_pct",
+    "importance": 0.0003,
+    "rf_importance": 0.0004,
+    "xgb_importance": 0.0001
+  },
+  {
+    "feature": "study_hours_per_day",
+    "importance": 0.0003,
+    "rf_importance": 0.0004,
+    "xgb_importance": 0.0002
+  },
+  {
+    "feature": "assignment_completion_pct",
+    "importance": 0.0002,
+    "rf_importance": 0.0004,
+    "xgb_importance": 0.0001
+  },
+  {
+    "feature": "sleep_hours",
+    "importance": 0.0002,
+    "rf_importance": 0.0003,
+    "xgb_importance": 0.0001
+  },
+  {
+    "feature": "social_media_hours",
+    "importance": 0.0002,
+    "rf_importance": 0.0004,
+    "xgb_importance": 0.0001
+  },
+  {
+    "feature": "stress_level",
+    "importance": 0.0002,
+    "rf_importance": 0.0002,
+    "xgb_importance": 0.0002
+  },
+  {
+    "feature": "extracurricular_hours",
+    "importance": 0.0002,
+    "rf_importance": 0.0004,
+    "xgb_importance": 0.0001
+  },
+  {
+    "feature": "ethnicity_encoded",
+    "importance": 0.0001,
+    "rf_importance": 0.0002,
+    "xgb_importance": 0.0
+  },
+  {
+    "feature": "parent_education_encoded",
+    "importance": 0.0001,
+    "rf_importance": 0.0002,
+    "xgb_importance": 0.0001
+  },
+  {
+    "feature": "lunch_encoded",
+    "importance": 0.0001,
+    "rf_importance": 0.0,
+    "xgb_importance": 0.0001
+  },
+  {
+    "feature": "test_prep_encoded",
+    "importance": 0.0001,
+    "rf_importance": 0.0001,
+    "xgb_importance": 0.0001
+  }
+]
