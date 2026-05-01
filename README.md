@@ -111,9 +111,7 @@ EduPilot-AI/
 ## 👨‍💻 Author
 
 **Ankit**
-Registration No: 12415206
-Course: B.Tech CSE AI/ML (CSE274)
-
+B.Tech CSE AI/ML 
 ---
 
 *Powered by Machine Learning & ❤️*
